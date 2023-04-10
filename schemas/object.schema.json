@@ -52,7 +52,7 @@
                     "properties": {
                         "hs_object": {
                             "type": "object",
-                            "description": "This component allows you to specify basic information about the object.",
+                            "description": "This component creates a new 'gameObject'. You can specify basic information about the newly created object here.",
                             "required": [
                                 "model"
                             ],
