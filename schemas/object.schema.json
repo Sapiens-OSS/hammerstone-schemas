@@ -12,28 +12,28 @@
       "type": "object",
       "description": "Wrapper object, to make identifying object files easier.",
       "required": ["description", "components"],
-      "meta": {
-        "description": "Container for 'metadata' related to your object. Feel free to introduce new fields.",
-        "type": "object",
-        "properties": {
-          "author": {
-            "type": "string",
-            "description": "The author who created this file.",
-            "examples": ["SirLich"]
-          },
-          "sapiens_version": {
-            "type": "string",
-            "description": "The version of Sapiens that this object was intended to be used with.",
-            "examples": ["0.3.6"]
-          },
-          "hammerstone_version": {
-            "type": "string",
-            "description": "The version of Hammerstone that this object was intended to be used with.",
-            "examples": ["1.2.5"]
-          }
-        }
-      },
       "properties": {
+        "meta": {
+          "description": "Container for 'metadata' related to your object. Feel free to introduce new fields.",
+          "type": "object",
+          "properties": {
+            "author": {
+              "type": "string",
+              "description": "The author who created this file.",
+              "examples": ["SirLich"]
+            },
+            "sapiens_version": {
+              "type": "string",
+              "description": "The version of Sapiens that this object was intended to be used with.",
+              "examples": ["0.3.6"]
+            },
+            "hammerstone_version": {
+              "type": "string",
+              "description": "The version of Hammerstone that this object was intended to be used with.",
+              "examples": ["1.2.5"]
+            }
+          }
+        },
         "components": {
           "description": "Container for object 'components', each covering a topic or capability.",
           "type": "object",
