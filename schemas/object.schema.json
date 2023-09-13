@@ -1,5 +1,5 @@
 {
-  "__url": "https://raw.githubusercontent.com/Sapiens-OSS/hammerstone-framework/feature/data-driven-api/schemas/object.schema.json",
+  "__url": "https://raw.githubusercontent.com/Sapiens-OSS/hammerstone-schemas/updating-schemas/schemas/object.schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "hammerstone.object.schema",
   "title": "Object Definition File",
@@ -124,17 +124,14 @@
                         "examples": ["weaponBasic"]
                       },
                       "damage": {
-                        "description": "NODOCS",
                         "type": "number",
                         "default": 1
                       },
                       "durability": {
-                        "description": "NODOCS",
                         "type": "number",
                         "default": 1
                       },
                       "speed": {
-                        "description": "NODOCS",
                         "type": "number",
                         "default": 1
                       }
@@ -241,12 +238,88 @@
                 "skill": {
                   "type": "string",
                   "description": "The skill required to complete this building.\n- See: skill.lua",
-                  "examples": ["basicBuilding", "thatchBuilding"]
+                  "enum": [
+                    "gathering",
+                    "diplomacy",
+                    "basicBuilding",
+                    "researching",
+                    "fireLighting",
+                    "rockKnapping",
+                    "flintKnapping",
+                    "boneCarving",
+                    "pottery",
+                    "potteryFiring",
+                    "spinning",
+                    "flutePlaying",
+                    "thatchBuilding",
+                    "woodBuilding",
+                    "mudBrickBuilding",
+                    "basicHunting",
+                    "spearHunting",
+                    "butchery",
+                    "campfireCooking",
+                    "treeFelling",
+                    "woodWorking",
+                    "toolAssembly",
+                    "digging",
+                    "mining",
+                    "chiselStone",
+                    "planting",
+                    "mulching",
+                    "threshing",
+                    "grinding",
+                    "baking",
+                    "brickBuilding",
+                    "tiling",
+                    "medicine",
+                    "blacksmithing"
+                  ]
+                },
+                "research": {
+                  "type": "string",
+                  "description": "The research required to unlock this building.\n- See: research.lua",
+                  "enum": [
+                    "gathering",
+                    "basicBuilding",
+                    "researching",
+                    "diplomacy",
+                    "fire",
+                    "thatchBuilding",
+                    "mudBrickBuilding",
+                    "rockKnapping",
+                    "flintKnapping",
+                    "boneCarving",
+                    "flutePlaying",
+                    "pottery",
+                    "digging",
+                    "planting",
+                    "threshing",
+                    "treeFelling",
+                    "spinning",
+                    "basicHunting",
+                    "spearHunting",
+                    "butchery",
+                    "woodWorking",
+                    "toolAssembly",
+                    "mining",
+                    "campfireCooking",
+                    "woodBuilding",
+                    "grinding",
+                    "mulching",
+                    "baking",
+                    "potteryFiring",
+                    "brickBuilding",
+                    "tiling",
+                    "medicine",
+                    "composting",
+                    "blacksmithing",
+                    "chiselStone"
+                  ]
                 },
                 "build_sequence": {
                   "type": "string",
                   "description": "Build sequence to use.\n- See: craftable.lua",
-                  "examples": [
+                  "enum": [
                     "researchBuildSequence",
                     "researchPlantSequence",
                     "threshingSequence",
@@ -257,9 +330,18 @@
                 },
                 "classification": {
                   "type": "string",
-                  "description": "The classification for this craftable.\n- See: craftable.lua",
+                  "description": "The classification for this craftable.\n- See: constructable.lua",
                   "default": "build",
-                  "examples": ["build"]
+                  "enum": [
+                    "build",
+                    "plant",
+                    "craft",
+                    "path",
+                    "place",
+                    "fill",
+                    "research",
+                    "fertilize"
+                  ]
                 },
                 "seat_type": {
                   "type": "string"
@@ -341,7 +423,7 @@
               "description": "The pluralized name of the object. May be localized, or not. Default is 'object_{identifier}_plural",
               "examples": ["Snake Skulls", "object_snakeSkull_plural"]
             },
-            "summary": {
+            "description": {
               "type": "string",
               "description": "A short description for the object, used in some contexts, such as buildables",
               "examples": [

@@ -1,0 +1,67 @@
+{
+  "__url": "https://raw.githubusercontent.com/Sapiens-OSS/hammerstone-framework/feature/data-driven-api/schemas/material.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "hammerstone.shared.schema",
+  "title": "Shared Objects Definition File",
+  "description": "A file for all the smaller components of DDAPI.",
+  "type": "object",
+  "required": ["hammerstone:global_definitions"],
+  "properties": {
+    "hammerstone:global_definitions": {
+      "type": "object",
+      "description": "Wrapper object for shared definitions",
+      "properties": {
+        "hs_seat_types": {
+          "type": "array",
+          "title": "Seat Types",
+          "items": {
+            "type": "object",
+            "properties": {
+              "identifier": {
+                "type": "string"
+              },
+              "comfort": {
+                "type": "integer",
+                "maximum": 1,
+                "minimum": 0
+              },
+              "nodes": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "yUpForwardOnly",
+                        "yUpForwardBack",
+                        "yUpAnyDirection",
+                        "yUpFlat",
+                        "yZCircle"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "hs_resource_groups": {
+            "type": "array",
+            "title": "Resource Groups",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "identifier": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+      }
+    }
+  }
+}
