@@ -1,106 +1,134 @@
 {
-    "__url": "https://raw.githubusercontent.com/Sapiens-OSS/hammerstone-schemas/updating-schemas/schemas/shared.schema.json",
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "hammerstone.material.schema",
-    "title": "Material Definition File",
-    "description": "A material definition file for registering objects using the Hammerstone Data Driven API.",
-    "type": "object",
-    "required": [
-        "hammerstone:material_definition"
-    ],
-    "properties": {
-        "hammerstone:material_definition": {
+  "__url": "https://raw.githubusercontent.com/Sapiens-OSS/hammerstone-schemas/updating-schemas/schemas/shared.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "hammerstone.shared.schema",
+  "title": "Shared Objects Definition File",
+  "description": "A file for all the smaller components of DDAPI.",
+  "type": "object",
+  "required": ["hammerstone:global_definitions"],
+  "properties": {
+    "hammerstone:global_definitions": {
+      "type": "object",
+      "description": "Wrapper object for shared definitions",
+      "properties": {
+        "hs_seat_types": {
+          "type": "array",
+          "title": "Seat Types",
+          "items": {
             "type": "object",
-            "description": "Wrapper object, to make identifying object files easier.",
-            "required": [
-                "materials"
-            ],
             "properties": {
-                "meta": {
-                    "description": "Container for 'metadata' related to your object. Feel free to introduce new fields.",
-                    "properties": {
-                        "author": {
-                            "type": "string",
-                            "description": "The author who created this file.",
-                            "examples": [
-                                "SirLich"
-                            ]
-                        },
-                        "sapiens_version": {
-                            "type": "string",
-                            "description": "The version of Sapiens that this object was intended to be used with.",
-                            "examples": [
-                                "0.3.6"
-                            ]
-                        },
-                        "hammerstone_version": {
-                            "type": "string",
-                            "description": "The version of Hammerstone that this object was intended to be used with.",
-                            "examples": [
-                                "1.2.5"
-                            ]
-                        }
+              "identifier": {
+                "type": "string"
+              },
+              "comfort": {
+                "type": "integer",
+                "maximum": 1,
+                "minimum": 0
+              },
+              "nodes": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "yUpForwardOnly",
+                        "yUpForwardBack",
+                        "yUpAnyDirection",
+                        "yUpFlat",
+                        "yZCircle"
+                      ]
                     }
-                },
-                "materials": {
-                    "description": "Container for materials.",
-                    "type": "array",
-                    "examples": [
-                        [
-                            {
-                                "identifier": ""
-                            }
-                        ]
-                    ],
-                    "items": [
-                        {
-                            "type": "object",
-                            "description": "A material definition.",
-                            "required": [
-                                "identifier",
-                                "color"
-                            ],
-                            "properties": {
-                                "identifier": {
-                                    "type": "string",
-                                    "description": "Identifier that should reference material names in your .glb model.",
-                                    "examples": [
-                                        "earmuffs:leather"
-                                    ]
-                                },
-                                "color": {
-                                    "type": "array",
-                                    "description": "Array containing 3 elements to define the RGB values of the material. Values are between 0 and 1.",
-                                    "minLength": 3,
-                                    "maxLength": 3,
-                                    "items": [
-                                        {
-                                            "type": "number",
-                                            "description": "A value between 0 and 1.",
-                                            "minimum": 0,
-                                            "maximum": 1
-                                        }
-                                    ]
-                                },
-                                "roughness": {
-                                    "type": "number",
-                                    "default": 1,
-                                    "description": "Glossiness. A value between 0 and 1.",
-                                    "minimum": 0,
-                                    "maximum": 1
-                                },
-                                "metal": {
-                                    "type": "number",
-                                    "default": 0,
-                                    "description": "Shininess. A value between 0 and 1.",
-                                    "minimum": 0,
-                                    "maximum": 1
-                                }
-                            }
-                        }
-                    ]
+                  }
                 }
+              }
+            }
+          }
+        },
+        "hs_resource_groups": {
+          "type": "array",
+          "title": "Resource Groups",
+          "items": {
+            "type": "object",
+            "properties": {
+              "identifier": {
+                "type": "string"
+              },
+              "display_object": {
+                "type": "string"
+              },
+              "resources": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "hs_materials": {
+          "type": "array",
+          "title": "Materials",
+          "items": {
+            "type": "object",
+            "properties": {
+              "identifier": { "type": "string" },
+              "color": {
+                "type": "array",
+                "maximum": 3,
+                "minimum": 3,
+                "items": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "metal": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "roughness": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            }
+          }
+        },
+        "hs_model_remaps": {
+          "type": "array",
+          "title": "Model Remaps",
+          "items": {
+            "type": "object",
+            "properties": {
+              "model": { "type": "string" },
+              "base_model": { "type": "string" },
+              "material_remaps": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "to": { "type": "string" },
+                    "from": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "hs_object_sets": {
+            "type": "array",
+            "title": "Object Sets",
+            "items": {
+                "type": "string"
             }
         }
+      }
     }
+  }
 }
