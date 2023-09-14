@@ -12,12 +12,13 @@
       "properties": {
         "description": {
           "type": "object",
+          "title": "Description",
           "description": "A field which describes generic or shared properties for this storage area.",
           "required": ["identifier"],
           "properties": {
             "identifier": {
               "type": "string",
-              "description": "The name of the storage zone",
+              "description": "The id of the storage zone",
               "examples": ["sirlich:skull_storage", "skull"]
             },
             "name": {
@@ -29,6 +30,7 @@
         },
         "components": {
           "type": "object",
+          "title": "Components",
           "description": "A list of components controlling this storage zone.",
           "required": ["hs_storage", "hs_carry"],
           "properties": {

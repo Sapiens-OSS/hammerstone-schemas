@@ -10,7 +10,6 @@
   "properties": {
     "hammerstone:object_definition": {
       "type": "object",
-      "description": "Wrapper object, to make identifying object files easier.",
       "required": ["description", "components"],
       "properties": {
         "meta": {
