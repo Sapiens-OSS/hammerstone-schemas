@@ -16,8 +16,7 @@
 					"type": "object",
 					"description": "A field which describes generic or shared properties for this storage area.",
 					"required": [
-						"identifier",
-						"name"
+						"identifier"
 					],
 					"properties": {
 						"identifier": {
@@ -106,7 +105,7 @@
 									"minimum": 3,
 									"maximum": 3,
 									"default": [
-										0.0, 0.0, 0.0
+										0.0, 0.0, 1.0
 									],
 									"items": {
 										"type": "number"
@@ -115,7 +114,7 @@
 								"random_rotation_weight": {
 									"type": "number",
 									"description": "The weight that the random rotation will have on the object",
-									"default": "2"
+									"default": 2
 								}
 							}
 						},

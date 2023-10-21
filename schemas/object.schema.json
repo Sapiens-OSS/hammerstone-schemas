@@ -69,11 +69,6 @@
                                         "snakeSkull"
                                     ]
                                 },
-                                "random_rotation": {
-                                    "type": "boolean",
-                                    "default": true,
-                                    "description": "Whether the object will have a random initial rotation."
-                                },
                                 "physics": {
                                     "type": "boolean",
                                     "default": true,
@@ -85,18 +80,17 @@
                                     "examples": [
                                         "sirlich:skulls"
                                     ]
-                                },
-                                "marker_positions": {
-                                    "type": "array",
-                                    "description": "The position where in-game markers will be positioned. In meters."
                                 }
                             }
                         },
                         "hs_resource": {
                             "description": "Defines the relationship that this object has with any potential resources.",
                             "type": "object",
+                            "required": [
+                                "storage_identifier"
+                            ],
                             "properties": {
-                                "link_to_storage": {
+                                "storage_identifier": {
                                     "type": "string",
                                     "description": "The identifier of the storage type for this object (defined in it's own file).",
                                     "examples": [
@@ -127,36 +121,27 @@
                             "description": "Describes the ways in which this item can be used as a tool.",
                             "properties": {
                                 "tool_usage": {
-                                    "type": "array",
-                                    "description": "List of tool configurations. You can add multiple configs if your tool is multi-purpose.\n- Field: toolUsages",
-                                    "items": {
-                                        "type": "object",
-                                        "description": "A single configuration, defining the stats for a single tool-type.",
-                                        "required": [
-                                            "tool_type"
-                                        ],
-                                        "properties": {
-                                            "tool_type": {
-                                                "type": "string",
-                                                "description": "The ID of the tool type.\n- See: tool.lua",
-                                                "examples": [
-                                                    "weaponBasic"
-                                                ]
-                                            },
-                                            "damage": {
-                                                "description": "NODOCS",
-                                                "type": "number",
-                                                "default": 1
-                                            },
-                                            "durability": {
-                                                "description": "NODOCS",
-                                                "type": "number",
-                                                "default": 1
-                                            },
-                                            "speed": {
-                                                "description": "NODOCS",
-                                                "type": "number",
-                                                "default": 1
+                                    "type": "object",
+                                    "description": "The tool configurations. You can add multiple configs if your tool is multi-purpose.\n- Field: toolUsages",
+                                    "patternProperties": {
+                                        "^.*$": {
+                                            "description": "A single configuration, defining the stats for a single tool-type.",
+                                            "properties": {
+                                                "damage": {
+                                                    "description": "NODOCS",
+                                                    "type": "number",
+                                                    "default": 1
+                                                },
+                                                "durability": {
+                                                    "description": "NODOCS",
+                                                    "type": "number",
+                                                    "default": 1
+                                                },
+                                                "speed": {
+                                                    "description": "NODOCS",
+                                                    "type": "number",
+                                                    "default": 1
+                                                }
                                             }
                                         }
                                     }
@@ -171,11 +156,11 @@
                             ],
                             "properties": {
                                 "time_years": {
-                                    "type": "string",
+                                    "type": "number",
                                     "description": "The time in years before this object will transform. Mutually exclusive with 'time_days'"
                                 },
                                 "time_days": {
-                                    "type": "string",
+                                    "type": "number",
                                     "description": "The time in days before this object will transform. Mutually exclusive with 'time_years'"
                                 },
                                 "transform_to": {
@@ -265,6 +250,122 @@
                                 }
                             }
                         },
+                        "hs_craftable": {
+                            "description": "This component allows you to create a crafting recipe, for this object.",
+                            "type": "object",
+                            "properties": {
+                                "resources": {
+                                    "type": "array",
+                                    "minimum": 1,
+                                    "description": "The sequence of items and actions to craft this recipe.\n- Field: requiredResources",
+                                    "items": {
+                                        "type": "object",
+                                        "description": "An individual sequence event, controlling the use/application of a single item.",
+                                        "required": [
+                                            "resource"
+                                        ],
+                                        "properties": {
+                                            "resource": {
+                                                "type": "string",
+                                                "description": "The identifier of a resource ingredient.\n\nSee: resource.lua",
+                                                "examples": [
+                                                    "orange"
+                                                ]
+                                            },
+                                            "count": {
+                                                "type": "integer",
+                                                "description": "The number of resource ingredients to use.",
+                                                "default": 1,
+                                                "examples": [
+                                                    1
+                                                ]
+                                            },
+                                            "action": {
+                                                "type": "object",
+                                                "description": "The action to perform after placing the item. This action ensures the recipe takes time to complete.\n\nSee: actionSequence.lua",
+                                                "required": [
+                                                    "duration",
+                                                    "duration_without_skill"
+                                                ],
+                                                "properties": {
+                                                    "action_type": {
+                                                        "type": "string",
+                                                        "description": "The action/animation identifier.\n\nSee: action.lua",
+                                                        "default": "inspect",
+                                                        "examples": [
+                                                            "inspect",
+                                                            "chop",
+                                                            "action_chop",
+                                                            "pickupObject"
+                                                        ]
+                                                    },
+                                                    "duration": {
+                                                        "type":"number",
+                                                        "description": "The duration of the action animation.",
+                                                        "examples": [
+                                                            0.5
+                                                        ]
+                                                    },
+                                                    "duration_without_skill": {
+                                                        "type": "number",
+                                                        "description": "The duration of the action animation, given that the sapien performing the action is missing (learning) the required skill.",
+                                                        "examples": [
+                                                            15
+                                                        ]
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "skills": {
+                                    "type": "array",
+                                    "description": "The skill IDs which must be used to craft this item. Maximum of two.\n\nSee: skill.lua",
+                                    "items": {
+                                        "type": "string",
+                                        "description": "Skill ID",
+                                        "maximum": 2,
+                                        "examples": [
+                                            "campfireCooking"
+                                        ]
+                                    }
+                                },
+                                "craft_area_groups": {
+                                    "type": "array",
+                                    "description": "The craft area group IDs which are used to craft this item. Leave blank to craft without a crafting area.\n\nField: requiredCraftAreaGroups\n\nSee: craftAreaGroup.lua",
+                                    "items": {
+                                        "type": "string",
+                                        "description": "Craft area ID",
+                                        "examples": [
+                                            "campfire"
+                                        ]
+                                    }
+                                },
+                                "tool_types": {
+                                    "type": "array",
+                                    "maximum": 1,
+                                    "minimum": 1,
+                                    "description": "The tool 'types' which are required to craft this item.\n- Field: requiredTools\n- See: tool.lua",
+                                    "items": {
+                                        "type": "string",
+                                        "description": "Tool ID",
+                                        "examples": [
+                                            "treeChop",
+                                            "dig",
+                                            "mine",
+                                            "weaponBasic",
+                                            "weaponSpear",
+                                            "weaponKnife",
+                                            "butcher",
+                                            "knapping",
+                                            "knappingCrude",
+                                            "grinding",
+                                            "carving"
+                                        ]
+                                    }
+                                }
+                            }
+                        },
                         "hs_buildable": {
                             "type": "object",
                             "description": "Marks this as a 'buildable object'. Incompatible with 'hs_resource'.",
@@ -275,6 +376,17 @@
                                         "bench"
                                     ],
                                     "description": "Configures whether (and how) the sapien can sit on this object.\n\n- See seat.lua\n\n- Custom seats can be created using the shared config"
+                                },
+                                "build_sequence": {
+                                    "type": "string",
+                                    "description": "The name of a table, contained in `craftable.lua`. Hammerstone ensures all base game sequences can be accessed this way. Incompatible with action_sequence.",
+                                    "examples": [
+                                        "clearObjectsAndTerrainSequence"
+                                    ]
+                                },
+                                "action_sequence": {
+                                    "type": "string",
+                                    "description": "The name of a sequence, from 'actionSequence.lua'. This will combined with the tool and called in craftable:createStandardBuildSequence. Incompatible with build_sequence"
                                 },
                                 "skill": {
                                     "type": "string",
@@ -303,7 +415,41 @@
                                     "type": "array"
                                 },
                                 "model_placeholder": {
-                                    "type": "array"
+                                    "type": "array",
+                                    "description": "You can define the 'model placeholder' for the built object here. If you leave this blank, you will need to shadow `modelPlaceholder.lua` yourself.",
+                                    "items": {
+                                        "type": "object",
+                                        "description": "A single config, which defines how a single resource will be placed into the model.",
+                                        "required": [
+                                            "key"
+                                        ],
+                                        "properties": {
+                                            "key": {
+                                                "type": "string",
+                                                "description": "A unique identifier, matching an empty placed into the gltf file. This is where the object will be placed."
+                                            },
+                                            "resource": {
+                                                "type": "string",
+                                                "description": "The resource id, which is the kind of resource which can be placed into this slot."
+                                            },
+                                            "default_model": {
+                                                "type": "string",
+                                                "description": "The default model name, which will be used, if no remaps are available."
+                                            },
+                                            "is_store": {
+                                                "type": "boolean",
+                                                "description": "Marks this as a 'storage' area. In these cases 'resource' and 'default_model' should be omitted."
+                                            },
+                                            "remaps": {
+                                                "type": "object",
+                                                "description": "A list of k:v pairs mapping between 'resources' and 'model names'. This allows you to customize how the final model looks, depending on the used resource. For example pine branches Vs. birch branches."
+                                            },
+                                            "additional_index_count": {
+                                                "type": "integer",
+                                                "description": "A tricky little int, which allows this placed resource to 'count for extra': It will essentially allow you to use more model placeholder slots than you have resources."
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
