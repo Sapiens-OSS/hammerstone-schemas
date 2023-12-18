@@ -1,501 +1,438 @@
 {
-    "__url": "https://raw.githubusercontent.com/Sapiens-OSS/hammerstone-framework/feature/data-driven-api/schemas/object.schema.json",
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "hammerstone.object.schema",
-    "title": "Object Definition File",
-    "description": "An object definition file for registering objects using the Hammerstone Data Driven API.",
-    "type": "object",
-    "required": [
-        "hammerstone:object_definition"
-    ],
-    "definitions": {},
-    "properties": {
-        "hammerstone:object_definition": {
-            "type": "object",
-            "description": "Wrapper object, to make identifying object files easier.",
-            "required": [
-                "description",
-                "components"
-            ],
-            "properties": {
-                "meta": {
-                    "description": "Container for 'metadata' related to your object. Feel free to introduce new fields.",
-                    "type": "object",
-                    "properties": {
-                        "author": {
-                            "type": "string",
-                            "description": "The author who created this file.",
-                            "examples": [
-                                "SirLich"
-                            ]
-                        },
-                        "sapiens_version": {
-                            "type": "string",
-                            "description": "The version of Sapiens that this object was intended to be used with.",
-                            "examples": [
-                                "0.3.6"
-                            ]
-                        },
-                        "hammerstone_version": {
-                            "type": "string",
-                            "description": "The version of Hammerstone that this object was intended to be used with.",
-                            "examples": [
-                                "1.2.5"
-                            ]
-                        }
-                    }
-                },
-                "components": {
-                    "description": "Container for object 'components', each covering a topic or capability.",
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "hs_object": {
-                            "type": "object",
-                            "description": "This component creates a new 'gameObject'. You can specify basic information about the newly created object here.",
-                            "required": [
-                                "model"
-                            ],
-                            "properties": {
-                                "scale": {
-                                    "type": "number",
-                                    "description": "The scale of the model.",
-                                    "default": 1
-                                },
-                                "model": {
-                                    "type": "string",
-                                    "description": "The name of the model that will represent this object.\n- Field: modelName",
-                                    "examples": [
-                                        "snakeSkull"
-                                    ]
-                                },
-                                "physics": {
-                                    "type": "boolean",
-                                    "default": true,
-                                    "description": "Whether the object has physics.\n- Field: hasPhysics"
-                                },
-                                "link_to_resource": {
-                                    "type": "string",
-                                    "description": "Allows you to link to an existing resource, rather than creating a new one. Mutually exclusive with 'create_resource'",
-                                    "examples": [
-                                        "sirlich:skulls"
-                                    ]
-                                }
-                            }
-                        },
-                        "hs_resource": {
-                            "description": "Defines the relationship that this object has with any potential resources.",
-                            "type": "object",
-                            "required": [
-                                "storage_identifier"
-                            ],
-                            "properties": {
-                                "storage_identifier": {
-                                    "type": "string",
-                                    "description": "The identifier of the storage type for this object (defined in it's own file).",
-                                    "examples": [
-                                        "sirlich:skull_storage"
-                                    ]
-                                }
-                            }
-                        },
-                        "hs_plans": {
-                            "type": "object",
-                            "description": "Allows you to define a custom 'planHelper' for this object. Can be used to hook your object to a unique plan, or use a vanilla preset.",
-                            "required": [
-                                "available_plans"
-                            ],
-                            "properties": {
-                                "available_plans": {
-                                    "type": "string",
-                                    "description": "The plan-helper config you want to use.\n- See: planHelper.lua",
-                                    "examples": [
-                                        "availablePlansForInProgressBuildObjects",
-                                        "availablePlansForMineableObjects"
-                                    ]
-                                }
-                            }
-                        },
-                        "hs_tool": {
-                            "type": "object",
-                            "description": "Describes the ways in which this item can be used as a tool.",
-                            "properties": {
-                                "tool_usage": {
-                                    "type": "object",
-                                    "description": "The tool configurations. You can add multiple configs if your tool is multi-purpose.\n- Field: toolUsages",
-                                    "patternProperties": {
-                                        "^.*$": {
-                                            "description": "A single configuration, defining the stats for a single tool-type.",
-                                            "properties": {
-                                                "damage": {
-                                                    "description": "NODOCS",
-                                                    "type": "number",
-                                                    "default": 1
-                                                },
-                                                "durability": {
-                                                    "description": "NODOCS",
-                                                    "type": "number",
-                                                    "default": 1
-                                                },
-                                                "speed": {
-                                                    "description": "NODOCS",
-                                                    "type": "number",
-                                                    "default": 1
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "hs_evolving_object": {
-                            "type": "object",
-                            "description": "This component allows specifying how your object will rot/dry/despawn.",
-                            "required": [
-                                "category"
-                            ],
-                            "properties": {
-                                "time_years": {
-                                    "type": "number",
-                                    "description": "The time in years before this object will transform. Mutually exclusive with 'time_days'"
-                                },
-                                "time_days": {
-                                    "type": "number",
-                                    "description": "The time in days before this object will transform. Mutually exclusive with 'time_years'"
-                                },
-                                "transform_to": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string",
-                                        "description": "Identifiers of the item you want to transform to. Leave blank to despawn rotten items.",
-                                        "examples": [
-                                            "sirlich:snake_skull"
-                                        ]
-                                    }
-                                },
-                                "category": {
-                                    "type": "string",
-                                    "description": "The category of transformation that is occurring.",
-                                    "anyOf": [
-                                        {
-                                            "const": "rot",
-                                            "title": "Sets that the object is rotting. i.e., becoming a rotten variation of itself."
-                                        },
-                                        {
-                                            "const": "dry",
-                                            "title": "Sets that the object is drying. i.e., becoming a dried variation of itself."
-                                        },
-                                        {
-                                            "const": "despawn",
-                                            "title": "Sets that the object is de-spawning. i.e., transforming into nothing."
-                                        }
-                                    ]
-                                }
-                            }
-                        },
-                        "hs_food": {
-                            "type": "object",
-                            "description": "Defines that the object is edible, and specifies it's properties.",
-                            "properties": {
-                                "portions": {
-                                    "type": "integer",
-                                    "description": "The number of times this food item can be eaten before it is fully consumed.",
-                                    "default": 1
-                                },
-                                "value": {
-                                    "type": "number",
-                                    "description": "The saturation value gained each time this food is eaten.",
-                                    "default": 0.5
-                                },
-                                "food_poison_chance": {
-                                    "type": "number",
-                                    "description": "The chance your Sapien will become sick consuming this food. 0=0%, 1=100%",
-                                    "default": 0
-                                },
-                                "items_when_eaten": {
-                                    "type": "array",
-                                    "description": "The list of items to transform to, when this object is eaten.",
-                                    "items": {
-                                        "type": "string",
-                                        "description": "Object identifier",
-                                        "examples": [
-                                            "sirlich:rat_skull"
-                                        ]
-                                    }
-                                }
-                            }
-                        },
-                        "hs_harvestable": {
-                            "type": "object",
-                            "description": "Controls whether the object can be harvested for resources.\n- See: harvestable.lua\n- Tip: Set 'hs_plans' to something that supports harvesting.",
-                            "required": [
-                                "resources_to_harvest",
-                                "finish_harvest_index"
-                            ],
-                            "properties": {
-                                "resources_to_harvest": {
-                                    "type": "array",
-                                    "description": "The list of resources to drop when this object is harvested. Duplicates are allowed.",
-                                    "items": {
-                                        "type": "string",
-                                        "description": "The 'gameObject' identifier of a single item to drop.\n- See: gameObject.lua",
-                                        "examples": [
-                                            "hs:rat_skull"
-                                        ]
-                                    }
-                                },
-                                "finish_harvest_index": {
-                                    "type": "integer",
-                                    "description": "The index [in resources_to_harvest] upon which the object will be removed, and replaced with the remaining resources."
-                                }
-                            }
-                        },
-                        "hs_craftable": {
-                            "description": "This component allows you to create a crafting recipe, for this object.",
-                            "type": "object",
-                            "properties": {
-                                "resources": {
-                                    "type": "array",
-                                    "minimum": 1,
-                                    "description": "The sequence of items and actions to craft this recipe.\n- Field: requiredResources",
-                                    "items": {
-                                        "type": "object",
-                                        "description": "An individual sequence event, controlling the use/application of a single item.",
-                                        "required": [
-                                            "resource"
-                                        ],
-                                        "properties": {
-                                            "resource": {
-                                                "type": "string",
-                                                "description": "The identifier of a resource ingredient.\n\nSee: resource.lua",
-                                                "examples": [
-                                                    "orange"
-                                                ]
-                                            },
-                                            "count": {
-                                                "type": "integer",
-                                                "description": "The number of resource ingredients to use.",
-                                                "default": 1,
-                                                "examples": [
-                                                    1
-                                                ]
-                                            },
-                                            "action": {
-                                                "type": "object",
-                                                "description": "The action to perform after placing the item. This action ensures the recipe takes time to complete.\n\nSee: actionSequence.lua",
-                                                "required": [
-                                                    "duration",
-                                                    "duration_without_skill"
-                                                ],
-                                                "properties": {
-                                                    "action_type": {
-                                                        "type": "string",
-                                                        "description": "The action/animation identifier.\n\nSee: action.lua",
-                                                        "default": "inspect",
-                                                        "examples": [
-                                                            "inspect",
-                                                            "chop",
-                                                            "action_chop",
-                                                            "pickupObject"
-                                                        ]
-                                                    },
-                                                    "duration": {
-                                                        "type":"number",
-                                                        "description": "The duration of the action animation.",
-                                                        "examples": [
-                                                            0.5
-                                                        ]
-                                                    },
-                                                    "duration_without_skill": {
-                                                        "type": "number",
-                                                        "description": "The duration of the action animation, given that the sapien performing the action is missing (learning) the required skill.",
-                                                        "examples": [
-                                                            15
-                                                        ]
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "skills": {
-                                    "type": "array",
-                                    "description": "The skill IDs which must be used to craft this item. Maximum of two.\n\nSee: skill.lua",
-                                    "items": {
-                                        "type": "string",
-                                        "description": "Skill ID",
-                                        "maximum": 2,
-                                        "examples": [
-                                            "campfireCooking"
-                                        ]
-                                    }
-                                },
-                                "craft_area_groups": {
-                                    "type": "array",
-                                    "description": "The craft area group IDs which are used to craft this item. Leave blank to craft without a crafting area.\n\nField: requiredCraftAreaGroups\n\nSee: craftAreaGroup.lua",
-                                    "items": {
-                                        "type": "string",
-                                        "description": "Craft area ID",
-                                        "examples": [
-                                            "campfire"
-                                        ]
-                                    }
-                                },
-                                "tool_types": {
-                                    "type": "array",
-                                    "maximum": 1,
-                                    "minimum": 1,
-                                    "description": "The tool 'types' which are required to craft this item.\n- Field: requiredTools\n- See: tool.lua",
-                                    "items": {
-                                        "type": "string",
-                                        "description": "Tool ID",
-                                        "examples": [
-                                            "treeChop",
-                                            "dig",
-                                            "mine",
-                                            "weaponBasic",
-                                            "weaponSpear",
-                                            "weaponKnife",
-                                            "butcher",
-                                            "knapping",
-                                            "knappingCrude",
-                                            "grinding",
-                                            "carving"
-                                        ]
-                                    }
-                                }
-                            }
-                        },
-                        "hs_buildable": {
-                            "type": "object",
-                            "description": "Marks this as a 'buildable object'. Incompatible with 'hs_resource'.",
-                            "properties": {
-                                "seat_type": {
-                                    "type": "string",
-                                    "examples": [
-                                        "bench"
-                                    ],
-                                    "description": "Configures whether (and how) the sapien can sit on this object.\n\n- See seat.lua\n\n- Custom seats can be created using the shared config"
-                                },
-                                "build_sequence": {
-                                    "type": "string",
-                                    "description": "The name of a table, contained in `craftable.lua`. Hammerstone ensures all base game sequences can be accessed this way. Incompatible with action_sequence.",
-                                    "examples": [
-                                        "clearObjectsAndTerrainSequence"
-                                    ]
-                                },
-                                "action_sequence": {
-                                    "type": "string",
-                                    "description": "The name of a sequence, from 'actionSequence.lua'. This will combined with the tool and called in craftable:createStandardBuildSequence. Incompatible with build_sequence"
-                                },
-                                "skill": {
-                                    "type": "string",
-                                    "description": "The skill required to complete this building.\n- See: skill.lua",
-                                    "examples": [
-                                        "basicBuilding",
-                                        "thatchBuilding"
-                                    ]
-                                },
-                                "classification": {
-                                    "type": "string",
-                                    "description": "The classification for this craftable.\n- See: craftable.lua",
-                                    "default": "build",
-                                    "examples": [
-                                        "build"
-                                    ]
-                                },
-                                "build_completion_plan": {
-                                    "type": "string",
-                                    "description": "The plan to queue, when the building is finished.\n- See: plan.lua",
-                                    "examples": [
-                                        "light"
-                                    ]
-                                },
-                                "resources": {
-                                    "type": "array"
-                                },
-                                "model_placeholder": {
-                                    "type": "array",
-                                    "description": "You can define the 'model placeholder' for the built object here. If you leave this blank, you will need to shadow `modelPlaceholder.lua` yourself.",
-                                    "items": {
-                                        "type": "object",
-                                        "description": "A single config, which defines how a single resource will be placed into the model.",
-                                        "required": [
-                                            "key"
-                                        ],
-                                        "properties": {
-                                            "key": {
-                                                "type": "string",
-                                                "description": "A unique identifier, matching an empty placed into the gltf file. This is where the object will be placed."
-                                            },
-                                            "resource": {
-                                                "type": "string",
-                                                "description": "The resource id, which is the kind of resource which can be placed into this slot."
-                                            },
-                                            "default_model": {
-                                                "type": "string",
-                                                "description": "The default model name, which will be used, if no remaps are available."
-                                            },
-                                            "is_store": {
-                                                "type": "boolean",
-                                                "description": "Marks this as a 'storage' area. In these cases 'resource' and 'default_model' should be omitted."
-                                            },
-                                            "remaps": {
-                                                "type": "object",
-                                                "description": "A list of k:v pairs mapping between 'resources' and 'model names'. This allows you to customize how the final model looks, depending on the used resource. For example pine branches Vs. birch branches."
-                                            },
-                                            "additional_index_count": {
-                                                "type": "integer",
-                                                "description": "A tricky little int, which allows this placed resource to 'count for extra': It will essentially allow you to use more model placeholder slots than you have resources."
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "description": {
-                    "description": "Container for global object properties.",
-                    "type": "object",
-                    "required": [
-                        "identifier"
-                    ],
-                    "properties": {
-                        "identifier": {
-                            "type": "string",
-                            "description": "The unique identifier of your object.",
-                            "examples": [
-                                "sirlich:snake_skull"
-                            ]
-                        },
-                        "name": {
-                            "type": "string",
-                            "description": "The name of the object. May be localized, or not. Default is 'object_{identifier}'",
-                            "examples": [
-                                "Snake Skull",
-                                "object_snakeSkull"
-                            ]
-                        },
-                        "plural": {
-                            "type": "string",
-                            "description": "The pluralized name of the object. May be localized, or not. Default is 'object_{identifier}_plural",
-                            "examples": [
-                                "Snake Skulls",
-                                "object_snakeSkull_plural"
-                            ]
-                        },
-                        "summary": {
-                            "type": "string",
-                            "description": "A short description for the object, used in some contexts, such as buildables",
-                            "examples": [
-                                "Split Log Steps 2x2 Half Floor",
-                                "buildable_splitLogSteps2x2"
-                            ]
-                        }
-                    }
-                }
+  "__url": "https://raw.githubusercontent.com/Sapiens-OSS/hammerstone-schemas/updating-schemas/schemas/object.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "hammerstone.object.schema",
+  "title": "Object Definition File",
+  "description": "An object definition file for registering objects using the Hammerstone Data Driven API.",
+  "type": "object",
+  "required": ["hammerstone:object_definition"],
+  "definitions": {},
+  "properties": {
+    "hammerstone:object_definition": {
+      "type": "object",
+      "required": ["description", "components"],
+      "properties": {
+        "meta": {
+          "description": "Container for 'metadata' related to your object. Feel free to introduce new fields.",
+          "type": "object",
+          "properties": {
+            "author": {
+              "type": "string",
+              "description": "The author who created this file.",
+              "examples": ["SirLich"]
+            },
+            "sapiens_version": {
+              "type": "string",
+              "description": "The version of Sapiens that this object was intended to be used with.",
+              "examples": ["0.3.6"]
+            },
+            "hammerstone_version": {
+              "type": "string",
+              "description": "The version of Hammerstone that this object was intended to be used with.",
+              "examples": ["1.2.5"]
             }
+          }
+        },
+        "components": {
+          "description": "Container for object 'components', each covering a topic or capability.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "hs_object": {
+              "type": "object",
+              "description": "This component creates a new 'gameObject'. You can specify basic information about the newly created object here.",
+              "required": ["model"],
+              "properties": {
+                "scale": {
+                  "type": "number",
+                  "description": "The scale of the model.",
+                  "default": 1
+                },
+                "model": {
+                  "type": "string",
+                  "description": "The name of the model that will represent this object.\n- Field: modelName",
+                  "examples": ["snakeSkull"]
+                },
+                "random_rotation": {
+                  "type": "boolean",
+                  "default": true,
+                  "description": "Whether the object will have a random initial rotation."
+                },
+                "physics": {
+                  "type": "boolean",
+                  "default": true,
+                  "description": "Whether the object has physics.\n- Field: hasPhysics"
+                },
+                "link_to_resource": {
+                  "type": "string",
+                  "description": "Allows you to link to an existing resource, rather than creating a new one. Mutually exclusive with 'create_resource'",
+                  "examples": ["sirlich:skulls"]
+                },
+                "marker_positions": {
+                  "type": "array",
+                  "description": "The position where in-game markers will be positioned. In meters."
+                }
+              }
+            },
+            "hs_resource": {
+              "description": "Defines the relationship that this object has with any potential resources.",
+              "type": "object",
+              "properties": {
+                "create_resource": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "hs_storage_link": {
+              "type": "object",
+              "required": ["identifier"],
+              "properties": {
+                "identifier": { "type": "string" }
+              }
+            },
+            "hs_plans": {
+              "type": "object",
+              "description": "Allows you to define a custom 'planHelper' for this object. Can be used to hook your object to a unique plan, or use a vanilla preset.",
+              "required": ["available_plans"],
+              "properties": {
+                "available_plans": {
+                  "type": "string",
+                  "description": "The plan-helper config you want to use.\n- See: planHelper.lua",
+                  "examples": [
+                    "availablePlansForInProgressBuildObjects",
+                    "availablePlansForMineableObjects"
+                  ]
+                }
+              }
+            },
+            "hs_tool": {
+              "type": "object",
+              "description": "Describes the ways in which this item can be used as a tool.",
+              "properties": {
+                "tool_usage": {
+                  "type": "array",
+                  "description": "List of tool configurations. You can add multiple configs if your tool is multi-purpose.\n- Field: toolUsages",
+                  "items": {
+                    "type": "object",
+                    "description": "A single configuration, defining the stats for a single tool-type.",
+                    "required": ["tool_type"],
+                    "properties": {
+                      "tool_type": {
+                        "type": "string",
+                        "description": "The ID of the tool type.\n- See: tool.lua",
+                        "examples": ["weaponBasic"]
+                      },
+                      "damage": {
+                        "type": "number",
+                        "default": 1
+                      },
+                      "durability": {
+                        "type": "number",
+                        "default": 1
+                      },
+                      "speed": {
+                        "type": "number",
+                        "default": 1
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "hs_evolving_object": {
+              "type": "object",
+              "description": "This component allows specifying how your object will rot/dry/despawn.",
+              "required": ["category"],
+              "properties": {
+                "time_years": {
+                  "type": "string",
+                  "description": "The time in years before this object will transform. Mutually exclusive with 'time_days'"
+                },
+                "time_days": {
+                  "type": "string",
+                  "description": "The time in days before this object will transform. Mutually exclusive with 'time_years'"
+                },
+                "transform_to": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "Identifiers of the item you want to transform to. Leave blank to despawn rotten items.",
+                    "examples": ["sirlich:snake_skull"]
+                  }
+                },
+                "category": {
+                  "type": "string",
+                  "description": "The category of transformation that is occurring.",
+                  "anyOf": [
+                    {
+                      "const": "rot",
+                      "title": "Sets that the object is rotting. i.e., becoming a rotten variation of itself."
+                    },
+                    {
+                      "const": "dry",
+                      "title": "Sets that the object is drying. i.e., becoming a dried variation of itself."
+                    },
+                    {
+                      "const": "despawn",
+                      "title": "Sets that the object is de-spawning. i.e., transforming into nothing."
+                    }
+                  ]
+                }
+              }
+            },
+            "hs_food": {
+              "type": "object",
+              "description": "Defines that the object is edible, and specifies it's properties.",
+              "properties": {
+                "portions": {
+                  "type": "integer",
+                  "description": "The number of times this food item can be eaten before it is fully consumed.",
+                  "default": 1
+                },
+                "value": {
+                  "type": "number",
+                  "description": "The saturation value gained each time this food is eaten.",
+                  "default": 0.5
+                },
+                "food_poison_chance": {
+                  "type": "number",
+                  "description": "The chance your Sapien will become sick consuming this food. 0=0%, 1=100%",
+                  "default": 0
+                },
+                "items_when_eaten": {
+                  "type": "array",
+                  "description": "The list of items to transform to, when this object is eaten.",
+                  "items": {
+                    "type": "string",
+                    "description": "Object identifier",
+                    "examples": ["sirlich:rat_skull"]
+                  }
+                }
+              }
+            },
+            "hs_harvestable": {
+              "type": "object",
+              "description": "Controls whether the object can be harvested for resources.\n- See: harvestable.lua\n- Tip: Set 'hs_plans' to something that supports harvesting.",
+              "required": ["resources_to_harvest", "finish_harvest_index"],
+              "properties": {
+                "resources_to_harvest": {
+                  "type": "array",
+                  "description": "The list of resources to drop when this object is harvested. Duplicates are allowed.",
+                  "items": {
+                    "type": "string",
+                    "description": "The 'gameObject' identifier of a single item to drop.\n- See: gameObject.lua",
+                    "examples": ["hs:rat_skull"]
+                  }
+                },
+                "finish_harvest_index": {
+                  "type": "integer",
+                  "description": "The index [in resources_to_harvest] upon which the object will be removed, and replaced with the remaining resources."
+                }
+              }
+            },
+            "hs_buildable": {
+              "type": "object",
+              "description": "Marks this as a 'buildable object'. Incompatible with 'hs_resource'.",
+              "properties": {
+                "skill": {
+                  "type": "string",
+                  "description": "The skill required to complete this building.\n- See: skill.lua",
+                  "enum": [
+                    "gathering",
+                    "diplomacy",
+                    "basicBuilding",
+                    "researching",
+                    "fireLighting",
+                    "rockKnapping",
+                    "flintKnapping",
+                    "boneCarving",
+                    "pottery",
+                    "potteryFiring",
+                    "spinning",
+                    "flutePlaying",
+                    "thatchBuilding",
+                    "woodBuilding",
+                    "mudBrickBuilding",
+                    "basicHunting",
+                    "spearHunting",
+                    "butchery",
+                    "campfireCooking",
+                    "treeFelling",
+                    "woodWorking",
+                    "toolAssembly",
+                    "digging",
+                    "mining",
+                    "chiselStone",
+                    "planting",
+                    "mulching",
+                    "threshing",
+                    "grinding",
+                    "baking",
+                    "brickBuilding",
+                    "tiling",
+                    "medicine",
+                    "blacksmithing"
+                  ]
+                },
+                "research": {
+                  "type": "string",
+                  "description": "The research required to unlock this building.\n- See: research.lua",
+                  "enum": [
+                    "gathering",
+                    "basicBuilding",
+                    "researching",
+                    "diplomacy",
+                    "fire",
+                    "thatchBuilding",
+                    "mudBrickBuilding",
+                    "rockKnapping",
+                    "flintKnapping",
+                    "boneCarving",
+                    "flutePlaying",
+                    "pottery",
+                    "digging",
+                    "planting",
+                    "threshing",
+                    "treeFelling",
+                    "spinning",
+                    "basicHunting",
+                    "spearHunting",
+                    "butchery",
+                    "woodWorking",
+                    "toolAssembly",
+                    "mining",
+                    "campfireCooking",
+                    "woodBuilding",
+                    "grinding",
+                    "mulching",
+                    "baking",
+                    "potteryFiring",
+                    "brickBuilding",
+                    "tiling",
+                    "medicine",
+                    "composting",
+                    "blacksmithing",
+                    "chiselStone"
+                  ]
+                },
+                "build_sequence": {
+                  "type": "string",
+                  "description": "Build sequence to use.\n- See: craftable.lua",
+                  "enum": [
+                    "researchBuildSequence",
+                    "researchPlantSequence",
+                    "threshingSequence",
+                    "grindingSequence",
+                    "kneedingSequence",
+                    "smithingSequence"
+                  ]
+                },
+                "classification": {
+                  "type": "string",
+                  "description": "The classification for this craftable.\n- See: constructable.lua",
+                  "default": "build",
+                  "enum": [
+                    "build",
+                    "plant",
+                    "craft",
+                    "path",
+                    "place",
+                    "fill",
+                    "research",
+                    "fertilize"
+                  ]
+                },
+                "seat_type": {
+                  "type": "string"
+                },
+                "resources": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "resource": {
+                        "type": "string"
+                      },
+                      "count": {
+                        "type": "number"
+                      }
+                    },
+                    "required": ["resource", "count"]
+                  }
+                },
+                "model_placeholder": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["key"],
+                    "properties": {
+                      "key": { "type": "string" },
+                      "default_model": { "type": "string" },
+                      "resource": { "type": "string" },
+                      "remaps": {
+                        "type": "remap"
+                      },
+                      "is_store": { "type": "boolean" }
+                    }
+                  }
+                },
+                "props": {
+                  "type": "object",
+                  "properties": {
+                    "allowBuildEvenWhenDark": {
+                      "type": "boolean",
+                      "default": false
+                    },
+                    "allowYTranslation": { "type": "boolean", "default": true },
+                    "allowXZRotation": { "type": "boolean", "default": true },
+                    "noBuildUnderWater": { "type": "boolean", "default": true },
+                    "canAttachToAnyObjectWithoutTestingForCollisions": {
+                      "type": "boolean",
+                      "default": false
+                    }
+                  }
+                }
+              }
+            },
+            "hs_decoration": {
+              "type": "object",
+              "properties": {
+                "enabled": { "type": "boolean" }
+              }
+            }
+          }
+        },
+        "description": {
+          "description": "Container for global object properties.",
+          "type": "object",
+          "required": ["identifier"],
+          "properties": {
+            "identifier": {
+              "type": "string",
+              "description": "The unique identifier of your object.",
+              "examples": ["sirlich:snake_skull"]
+            },
+            "name": {
+              "type": "string",
+              "description": "The name of the object. May be localized, or not. Default is 'object_{identifier}'",
+              "examples": ["Snake Skull", "object_snakeSkull"]
+            },
+            "plural": {
+              "type": "string",
+              "description": "The pluralized name of the object. May be localized, or not. Default is 'object_{identifier}_plural",
+              "examples": ["Snake Skulls", "object_snakeSkull_plural"]
+            },
+            "description": {
+              "type": "string",
+              "description": "A short description for the object, used in some contexts, such as buildables",
+              "examples": [
+                "Split Log Steps 2x2 Half Floor",
+                "buildable_splitLogSteps2x2"
+              ]
+            }
+          }
         }
+      }
     }
+  }
 }
