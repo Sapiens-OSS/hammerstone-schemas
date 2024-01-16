@@ -6,6 +6,7 @@
   "description": "A file for all the smaller components of DDAPI.",
   "type": "object",
   "required": ["hammerstone:global_definitions"],
+  "exportDir": "shared",
   "properties": {
     "hammerstone:global_definitions": {
       "type": "object",
