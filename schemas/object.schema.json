@@ -631,6 +631,224 @@
               "properties": {
                 "enabled": { "type": "boolean" }
               }
+            },
+            "hs_craftable": {
+              "type": "object",
+              "properties": {
+                "tool": {
+                  "type": "string",
+                  "enum": [
+                    "treeChop",
+                    "dig",
+                    "mine",
+                    "weaponBasic",
+                    "weaponSpear",
+                    "weaponKnife",
+                    "butcher",
+                    "knapping",
+                    "grinding",
+                    "carving",
+                    "crucible",
+                    "hammering",
+                    "softChiselling",
+                    "hardChiselling"
+                  ]
+                },
+                "action_sequence": {
+                  "type": "string",
+                  "enum": [
+                    "idle",
+                    "moveTo",
+                    "chop",
+                    "pullOut",
+                    "gather",
+                    "gatherBush",
+                    "dig",
+                    "clear",
+                    "pickupObject",
+                    "pickupMultiObject",
+                    "deliverObject",
+                    "deliverMultiObject",
+                    "dropObject",
+                    "eat",
+                    "playFlute",
+                    "playDrum",
+                    "playBalafon",
+                    "wave",
+                    "turn",
+                    "fall",
+                    "sleep",
+                    "sit",
+                    "buildMoveComponent",
+                    "light",
+                    "extinguish",
+                    "destroyContents",
+                    "throwProjectile",
+                    "butcher",
+                    "knap",
+                    "knapCrude",
+                    "grind",
+                    "scrapeWood",
+                    "fireStickCook",
+                    "smeltMetal",
+                    "recruit",
+                    "inspect",
+                    "patDown",
+                    "potteryCraft",
+                    "toolAssembly",
+                    "thresh",
+                    "spinCraft",
+                    "mine",
+                    "takeOffTorsoClothing",
+                    "putOnTorsoClothing",
+                    "flee",
+                    "selfApplyOralMedicine",
+                    "selfApplyTopicalMedicine",
+                    "otherApplyTopicalMedicine",
+                    "otherApplyOralMedicine",
+                    "smithHammer",
+                    "chiselStone"
+                  ]
+                },
+                "build_sequence": {
+                  "type": "string",
+                  "enum": [
+                    "researchBuildSequence",
+                    "researchPlantSequence",
+                    "threshingSequence",
+                    "grindingSequence",
+                    "kneedingSequence",
+                    "smithingSequence"
+                  ]
+                },
+                "skill": {
+                  "type": "string",
+                  "enum": [
+                    "gathering",
+                    "diplomacy",
+                    "basicBuilding",
+                    "researching",
+                    "fireLighting",
+                    "rockKnapping",
+                    "flintKnapping",
+                    "boneCarving",
+                    "pottery",
+                    "potteryFiring",
+                    "spinning",
+                    "flutePlaying",
+                    "thatchBuilding",
+                    "woodBuilding",
+                    "mudBrickBuilding",
+                    "basicHunting",
+                    "spearHunting",
+                    "butchery",
+                    "campfireCooking",
+                    "treeFelling",
+                    "woodWorking",
+                    "toolAssembly",
+                    "digging",
+                    "mining",
+                    "chiselStone",
+                    "planting",
+                    "mulching",
+                    "threshing",
+                    "grinding",
+                    "baking",
+                    "brickBuilding",
+                    "tiling",
+                    "medicine",
+                    "blacksmithing"
+                  ]
+                },
+                "display_object": {
+                  "type": "string",
+                  "description": "Alternative object to display as."
+                },
+                "resources": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["action"],
+                    "properties": {
+                      "resource": {
+                        "type": "string"
+                      },
+                      "count": {
+                        "type": "number"
+                      },
+                      "action": {
+                        "type": "object",
+                        "properties": {
+                          "action_type": {
+                            "type": "string",
+                            "enum": [
+                              "idle",
+                              "moveTo",
+                              "chop",
+                              "pullOut",
+                              "gather",
+                              "gatherBush",
+                              "dig",
+                              "clear",
+                              "pickupObject",
+                              "pickupMultiObject",
+                              "deliverObject",
+                              "deliverMultiObject",
+                              "dropObject",
+                              "eat",
+                              "playFlute",
+                              "playDrum",
+                              "playBalafon",
+                              "wave",
+                              "turn",
+                              "fall",
+                              "sleep",
+                              "sit",
+                              "buildMoveComponent",
+                              "light",
+                              "extinguish",
+                              "destroyContents",
+                              "throwProjectile",
+                              "butcher",
+                              "knap",
+                              "knapCrude",
+                              "grind",
+                              "scrapeWood",
+                              "fireStickCook",
+                              "smeltMetal",
+                              "recruit",
+                              "inspect",
+                              "patDown",
+                              "potteryCraft",
+                              "toolAssembly",
+                              "thresh",
+                              "spinCraft",
+                              "mine",
+                              "takeOffTorsoClothing",
+                              "putOnTorsoClothing",
+                              "flee",
+                              "selfApplyOralMedicine",
+                              "selfApplyTopicalMedicine",
+                              "otherApplyTopicalMedicine",
+                              "otherApplyOralMedicine",
+                              "smithHammer",
+                              "chiselStone"
+                            ]
+                          },
+                          "duration": {
+                            "type": "number",
+                            "description": "Duration with required skill"
+                          },
+                          "duration_without_skill": {
+                            "type": "number",
+                            "description": "Duration without required skill"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         },
