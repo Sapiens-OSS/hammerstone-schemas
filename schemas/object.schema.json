@@ -108,267 +108,261 @@
             },
             "hs_tool": {
               "type": "object",
-              "description": "Describes the ways in which this item can be used as a tool.",
+              "description": "Tool configurations. You can add multiple configs if your tool is multi-purpose.\n- Field: toolUsages",
               "properties": {
-                "tool_usage": {
+                "treeChop": {
                   "type": "object",
-                  "description": "Tool configurations. You can add multiple configs if your tool is multi-purpose.\n- Field: toolUsages",
                   "properties": {
-                    "treeChop": {
-                      "type": "object",
-                      "properties": {
-                        "damage": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "durability": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "speed": {
-                          "type": "number",
-                          "default": 1
-                        }
-                      }
+                    "damage": {
+                      "type": "number",
+                      "default": 1
                     },
-                    "dig": {
-                      "type": "object",
-                      "properties": {
-                        "damage": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "durability": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "speed": {
-                          "type": "number",
-                          "default": 1
-                        }
-                      }
+                    "durability": {
+                      "type": "number",
+                      "default": 1
                     },
-                    "mine": {
-                      "type": "object",
-                      "properties": {
-                        "damage": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "durability": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "speed": {
-                          "type": "number",
-                          "default": 1
-                        }
-                      }
+                    "speed": {
+                      "type": "number",
+                      "default": 1
+                    }
+                  }
+                },
+                "dig": {
+                  "type": "object",
+                  "properties": {
+                    "damage": {
+                      "type": "number",
+                      "default": 1
                     },
-                    "     ": {
-                      "title": "weaponBasic",
-                      "type": "object",
-                      "properties": {
-                        "damage": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "durability": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "speed": {
-                          "type": "number",
-                          "default": 1
-                        }
-                      }
+                    "durability": {
+                      "type": "number",
+                      "default": 1
                     },
-                    "weaponSpear": {
-                      "type": "object",
-                      "properties": {
-                        "damage": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "durability": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "speed": {
-                          "type": "number",
-                          "default": 1
-                        }
-                      }
+                    "speed": {
+                      "type": "number",
+                      "default": 1
+                    }
+                  }
+                },
+                "mine": {
+                  "type": "object",
+                  "properties": {
+                    "damage": {
+                      "type": "number",
+                      "default": 1
                     },
-                    "weaponKnife": {
-                      "type": "object",
-                      "properties": {
-                        "damage": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "durability": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "speed": {
-                          "type": "number",
-                          "default": 1
-                        }
-                      }
+                    "durability": {
+                      "type": "number",
+                      "default": 1
                     },
-                    "butcher": {
-                      "type": "object",
-                      "properties": {
-                        "damage": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "durability": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "speed": {
-                          "type": "number",
-                          "default": 1
-                        }
-                      }
+                    "speed": {
+                      "type": "number",
+                      "default": 1
+                    }
+                  }
+                },
+                "     ": {
+                  "title": "weaponBasic",
+                  "type": "object",
+                  "properties": {
+                    "damage": {
+                      "type": "number",
+                      "default": 1
                     },
-                    "knapping": {
-                      "type": "object",
-                      "properties": {
-                        "damage": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "durability": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "speed": {
-                          "type": "number",
-                          "default": 1
-                        }
-                      }
+                    "durability": {
+                      "type": "number",
+                      "default": 1
                     },
-                    "knappingCrude": {
-                      "type": "object",
-                      "properties": {
-                        "damage": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "durability": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "speed": {
-                          "type": "number",
-                          "default": 1
-                        }
-                      }
+                    "speed": {
+                      "type": "number",
+                      "default": 1
+                    }
+                  }
+                },
+                "weaponSpear": {
+                  "type": "object",
+                  "properties": {
+                    "damage": {
+                      "type": "number",
+                      "default": 1
                     },
-                    "grinding": {
-                      "type": "object",
-                      "properties": {
-                        "damage": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "durability": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "speed": {
-                          "type": "number",
-                          "default": 1
-                        }
-                      }
+                    "durability": {
+                      "type": "number",
+                      "default": 1
                     },
-                    "carving": {
-                      "type": "object",
-                      "properties": {
-                        "damage": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "durability": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "speed": {
-                          "type": "number",
-                          "default": 1
-                        }
-                      }
+                    "speed": {
+                      "type": "number",
+                      "default": 1
+                    }
+                  }
+                },
+                "weaponKnife": {
+                  "type": "object",
+                  "properties": {
+                    "damage": {
+                      "type": "number",
+                      "default": 1
                     },
-                    "crucible": {
-                      "type": "object",
-                      "properties": {
-                        "damage": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "durability": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "speed": {
-                          "type": "number",
-                          "default": 1
-                        }
-                      }
+                    "durability": {
+                      "type": "number",
+                      "default": 1
                     },
-                    "hammering": {
-                      "type": "object",
-                      "properties": {
-                        "damage": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "durability": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "speed": {
-                          "type": "number",
-                          "default": 1
-                        }
-                      }
+                    "speed": {
+                      "type": "number",
+                      "default": 1
+                    }
+                  }
+                },
+                "butcher": {
+                  "type": "object",
+                  "properties": {
+                    "damage": {
+                      "type": "number",
+                      "default": 1
                     },
-                    "softChiselling": {
-                      "type": "object",
-                      "properties": {
-                        "damage": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "durability": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "speed": {
-                          "type": "number",
-                          "default": 1
-                        }
-                      }
+                    "durability": {
+                      "type": "number",
+                      "default": 1
                     },
-                    "hardChiselling": {
-                      "type": "object",
-                      "properties": {
-                        "damage": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "durability": {
-                          "type": "number",
-                          "default": 1
-                        },
-                        "speed": {
-                          "type": "number",
-                          "default": 1
-                        }
-                      }
+                    "speed": {
+                      "type": "number",
+                      "default": 1
+                    }
+                  }
+                },
+                "knapping": {
+                  "type": "object",
+                  "properties": {
+                    "damage": {
+                      "type": "number",
+                      "default": 1
+                    },
+                    "durability": {
+                      "type": "number",
+                      "default": 1
+                    },
+                    "speed": {
+                      "type": "number",
+                      "default": 1
+                    }
+                  }
+                },
+                "knappingCrude": {
+                  "type": "object",
+                  "properties": {
+                    "damage": {
+                      "type": "number",
+                      "default": 1
+                    },
+                    "durability": {
+                      "type": "number",
+                      "default": 1
+                    },
+                    "speed": {
+                      "type": "number",
+                      "default": 1
+                    }
+                  }
+                },
+                "grinding": {
+                  "type": "object",
+                  "properties": {
+                    "damage": {
+                      "type": "number",
+                      "default": 1
+                    },
+                    "durability": {
+                      "type": "number",
+                      "default": 1
+                    },
+                    "speed": {
+                      "type": "number",
+                      "default": 1
+                    }
+                  }
+                },
+                "carving": {
+                  "type": "object",
+                  "properties": {
+                    "damage": {
+                      "type": "number",
+                      "default": 1
+                    },
+                    "durability": {
+                      "type": "number",
+                      "default": 1
+                    },
+                    "speed": {
+                      "type": "number",
+                      "default": 1
+                    }
+                  }
+                },
+                "crucible": {
+                  "type": "object",
+                  "properties": {
+                    "damage": {
+                      "type": "number",
+                      "default": 1
+                    },
+                    "durability": {
+                      "type": "number",
+                      "default": 1
+                    },
+                    "speed": {
+                      "type": "number",
+                      "default": 1
+                    }
+                  }
+                },
+                "hammering": {
+                  "type": "object",
+                  "properties": {
+                    "damage": {
+                      "type": "number",
+                      "default": 1
+                    },
+                    "durability": {
+                      "type": "number",
+                      "default": 1
+                    },
+                    "speed": {
+                      "type": "number",
+                      "default": 1
+                    }
+                  }
+                },
+                "softChiselling": {
+                  "type": "object",
+                  "properties": {
+                    "damage": {
+                      "type": "number",
+                      "default": 1
+                    },
+                    "durability": {
+                      "type": "number",
+                      "default": 1
+                    },
+                    "speed": {
+                      "type": "number",
+                      "default": 1
+                    }
+                  }
+                },
+                "hardChiselling": {
+                  "type": "object",
+                  "properties": {
+                    "damage": {
+                      "type": "number",
+                      "default": 1
+                    },
+                    "durability": {
+                      "type": "number",
+                      "default": 1
+                    },
+                    "speed": {
+                      "type": "number",
+                      "default": 1
                     }
                   }
                 }
