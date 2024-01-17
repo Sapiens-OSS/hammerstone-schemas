@@ -635,6 +635,45 @@
             "hs_craftable": {
               "type": "object",
               "properties": {
+                "skill": {
+                  "type": "string",
+                  "enum": [
+                    "gathering",
+                    "diplomacy",
+                    "basicBuilding",
+                    "researching",
+                    "fireLighting",
+                    "rockKnapping",
+                    "flintKnapping",
+                    "boneCarving",
+                    "pottery",
+                    "potteryFiring",
+                    "spinning",
+                    "flutePlaying",
+                    "thatchBuilding",
+                    "woodBuilding",
+                    "mudBrickBuilding",
+                    "basicHunting",
+                    "spearHunting",
+                    "butchery",
+                    "campfireCooking",
+                    "treeFelling",
+                    "woodWorking",
+                    "toolAssembly",
+                    "digging",
+                    "mining",
+                    "chiselStone",
+                    "planting",
+                    "mulching",
+                    "threshing",
+                    "grinding",
+                    "baking",
+                    "brickBuilding",
+                    "tiling",
+                    "medicine",
+                    "blacksmithing"
+                  ]
+                },
                 "tool": {
                   "type": "string",
                   "enum": [
@@ -653,6 +692,18 @@
                     "softChiselling",
                     "hardChiselling"
                   ]
+                },
+                "hs_output": {
+                  "type": "object",
+                  "properties": {
+                    "simple_output": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "List of gameObjects this recipe generates"
+                    }
+                  }
                 },
                 "action_sequence": {
                   "type": "string",
@@ -719,45 +770,6 @@
                     "grindingSequence",
                     "kneedingSequence",
                     "smithingSequence"
-                  ]
-                },
-                "skill": {
-                  "type": "string",
-                  "enum": [
-                    "gathering",
-                    "diplomacy",
-                    "basicBuilding",
-                    "researching",
-                    "fireLighting",
-                    "rockKnapping",
-                    "flintKnapping",
-                    "boneCarving",
-                    "pottery",
-                    "potteryFiring",
-                    "spinning",
-                    "flutePlaying",
-                    "thatchBuilding",
-                    "woodBuilding",
-                    "mudBrickBuilding",
-                    "basicHunting",
-                    "spearHunting",
-                    "butchery",
-                    "campfireCooking",
-                    "treeFelling",
-                    "woodWorking",
-                    "toolAssembly",
-                    "digging",
-                    "mining",
-                    "chiselStone",
-                    "planting",
-                    "mulching",
-                    "threshing",
-                    "grinding",
-                    "baking",
-                    "brickBuilding",
-                    "tiling",
-                    "medicine",
-                    "blacksmithing"
                   ]
                 },
                 "display_object": {
