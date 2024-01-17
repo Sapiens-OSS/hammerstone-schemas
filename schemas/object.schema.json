@@ -81,6 +81,9 @@
               "properties": {
                 "create_resource": {
                   "type": "boolean"
+                },
+                "storage_identifier": {
+                  "type": "string"
                 }
               }
             },
