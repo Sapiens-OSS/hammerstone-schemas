@@ -108,7 +108,7 @@
             "type": "object",
             "properties": {
               "model": { "type": "string" },
-              "base_model": { "type": "string" },
+              "base_model": { "type": "string", "_swb_asset_type": "model" },
               "material_remaps": {
                 "type": "array",
                 "items": {
@@ -123,11 +123,11 @@
           }
         },
         "hs_object_sets": {
-            "type": "array",
-            "title": "Object Sets",
-            "items": {
-                "type": "string"
-            }
+          "type": "array",
+          "title": "Object Sets",
+          "items": {
+            "type": "string"
+          }
         }
       }
     }
