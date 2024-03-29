@@ -71,7 +71,8 @@
                 },
                 "marker_positions": {
                   "type": "array",
-                  "description": "The position where in-game markers will be positioned. In meters."
+                  "description": "The position where in-game markers will be positioned, in metres. In development.",
+                  "maximum": 0
                 }
               }
             },
