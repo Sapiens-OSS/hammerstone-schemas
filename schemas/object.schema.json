@@ -3,7 +3,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "hammerstone.object.schema",
   "title": "Object Definition File",
-  "description": "An object definition file for registering objects using the Hammerstone Data Driven API.",
+  "description": "Objects are interactable items and tools in your Sapiens world.",
   "type": "object",
   "required": ["hammerstone:object_definition"],
   "definitions": {},
