@@ -3,7 +3,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "hammerstone.storage.schema",
   "title": "Storage Definition File",
-  "description": "A file which describes how objects are stored/carried",
+  "description": "Define how objects in Sapiens are stored or carried.",
   "type": "object",
   "required": ["hammerstone:storage_definition"],
   "exportDir": "storage",
