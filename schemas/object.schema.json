@@ -73,7 +73,9 @@
                   "type": "array",
                   "description": "The position where in-game markers will be positioned, in metres. In development.",
                   "maximum": 0,
-                  "items": "number"
+                  "items": {
+                    "type": "number"
+                  }
                 }
               }
             },
