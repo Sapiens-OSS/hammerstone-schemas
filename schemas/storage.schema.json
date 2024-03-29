@@ -9,6 +9,7 @@
   "exportDir": "storage",
   "properties": {
     "hammerstone:storage_definition": {
+      "type": "object",
       "description": "A wrapper object to make storage files easier to identify.",
       "properties": {
         "description": {
