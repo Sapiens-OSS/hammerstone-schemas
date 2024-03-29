@@ -3,7 +3,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "hammerstone.shared.schema",
   "title": "Shared Objects Definition File",
-  "description": "A file for all the smaller components of DDAPI.",
+  "description": "A bundled definition for smaller components that don't need their own definitions.",
   "type": "object",
   "required": ["hammerstone:global_definitions"],
   "exportDir": "shared",
